@@ -1,7 +1,7 @@
-#include "client_http.hpp"
-#include "server_http.hpp"
 #include <cassert>
 #include <iostream>
+#include <moonlight/web/client_http.hpp>
+#include <moonlight/web/server_http.hpp>
 
 using namespace std;
 using namespace SimpleWeb;

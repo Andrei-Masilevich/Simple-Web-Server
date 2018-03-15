@@ -1,5 +1,5 @@
-#include "client_http.hpp"
-#include "server_http.hpp"
+#include <moonlight/web/client_http.hpp>
+#include <moonlight/web/server_http.hpp>
 
 #include <cassert>
 

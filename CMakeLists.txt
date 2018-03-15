@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.0)
 
-project (moonlight-web-server)
+project (moonlight-web)
 
 option(USE_STANDALONE_ASIO "set ON to use standalone Asio instead of Boost.Asio" OFF)
 option(BUILD_TESTING "set ON to build library tests" OFF)
@@ -69,11 +69,10 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
     add_subdirectory(examples)
     
     set(BUILD_TESTING ON)
-    
-    install(FILES ${SOLUTION_FILES} DESTINATION include/moonlight-web)
 endif()
 
 if(BUILD_TESTING)
+    message( STATUS "Configuring ctest-s" )
     enable_testing()
     add_subdirectory(tests)
 endif()
