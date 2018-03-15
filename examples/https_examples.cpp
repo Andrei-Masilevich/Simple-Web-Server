@@ -1,5 +1,5 @@
-#include "client_https.hpp"
-#include "server_https.hpp"
+#include <moonlight/web/client_https.hpp>
+#include <moonlight/web/server_https.hpp>
 
 // Added for the json-example
 #define BOOST_SPIRIT_THREADSAFE
@@ -7,10 +7,10 @@
 #include <boost/property_tree/ptree.hpp>
 
 // Added for the default_resource example
-#include "crypto.hpp"
 #include <algorithm>
 #include <boost/filesystem.hpp>
 #include <fstream>
+#include <moonlight/web/crypto.hpp>
 #include <vector>
 
 using namespace std;
@@ -135,8 +135,8 @@ int main() {
 
       SimpleWeb::CaseInsensitiveMultimap header;
 
-      // Uncomment the following line to enable Cache-Control
-      // header.emplace("Cache-Control", "max-age=86400");
+// Uncomment the following line to enable Cache-Control
+// header.emplace("Cache-Control", "max-age=86400");
 
 #ifdef HAVE_OPENSSL
 //    Uncomment the following lines to enable ETag
