@@ -83,8 +83,15 @@ namespace SimpleWeb {
       }
 
     public:
+      //for tests only
+      Response() : std::ostream(&streambuf), timeout_content(0) {}
+
       std::size_t size() noexcept {
         return streambuf.size();
+      }
+
+      std::string content() const {
+        return {boost::asio::buffer_cast<const char *>(streambuf.data()), streambuf.size()};
       }
 
       /// Use this function if you need to recursively send parts of a longer message
