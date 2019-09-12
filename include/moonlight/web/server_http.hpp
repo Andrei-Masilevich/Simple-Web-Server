@@ -345,7 +345,7 @@ namespace SimpleWeb {
         internal_io_service = true;
       }
 
-      if(io_service->stopped())
+      if(internal_io_service && io_service->stopped())
         io_service->reset();
 
       asio::ip::tcp::endpoint endpoint;
@@ -363,23 +363,21 @@ namespace SimpleWeb {
 
       accept();
 
-      if(internal_io_service) {
-        // If thread_pool_size>1, start m_io_service.run() in (thread_pool_size-1) threads for thread-pooling
-        threads.clear();
-        for(std::size_t c = 1; c < config.thread_pool_size; c++) {
-          threads.emplace_back([this]() {
-            this->io_service->run();
-          });
-        }
-
-        // Main thread
-        if(config.thread_pool_size > 0)
-          io_service->run();
-
-        // Wait for the rest of the threads, if any, to finish as well
-        for(auto &t : threads)
-          t.join();
+      // If thread_pool_size>1, start m_io_service.run() in (thread_pool_size-1) threads for thread-pooling
+      threads.clear();
+      for(std::size_t c = 1; c < config.thread_pool_size; c++) {
+        threads.emplace_back([this]() {
+          this->io_service->run();
+        });
       }
+
+      // Main thread
+      if(internal_io_service && config.thread_pool_size > 0)
+        io_service->run();
+
+      // Wait for the rest of the threads, if any, to finish as well
+      for(auto &t : threads)
+        t.join();
     }
 
     /// Stop accepting new requests, and close current connections.
