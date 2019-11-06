@@ -72,7 +72,7 @@ namespace SimpleWeb {
 #if OPENSSL_VERSION_NUMBER <= 0x1000115fL
         bio = BIO_new_mem_buf((char *)&base64[0], static_cast<int>(base64.size()));
 #else
-        bio = BIO_new_mem_buf(&base64[0], static_cast<int>(base64.size()));
+        bio = BIO_new_mem_buf((void *)&base64[0], static_cast<int>(base64.size()));
 #endif
         bio = BIO_push(b64, bio);
 
@@ -223,5 +223,5 @@ namespace SimpleWeb {
       return key;
     }
   };
-}
+} // namespace SimpleWeb
 #endif /* SIMPLE_WEB_CRYPTO_HPP */
