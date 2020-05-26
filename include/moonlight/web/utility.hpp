@@ -8,6 +8,8 @@
 #include <string>
 #include <unordered_map>
 
+#include <boost/version.hpp>
+
 namespace SimpleWeb {
   inline bool case_insensitive_equal(const std::string &str1, const std::string &str2) noexcept {
     return str1.size() == str2.size() &&
@@ -348,6 +350,17 @@ namespace SimpleWeb {
       }
     }
   };
+
+  template <typename Socket>
+  auto get_io_service(Socket &s)
+  {
+#if BOOST_VERSION >= 107000
+      return s.get_executor();
+#else
+      return s.get_io_service();
+#endif
+  }
+
 } // namespace SimpleWeb
 
 #endif // SIMPLE_WEB_UTILITY_HPP
