@@ -351,15 +351,19 @@ namespace SimpleWeb {
     }
   };
 
+#if BOOST_VERSION >= 107000
   template <typename Socket>
   auto get_io_service(Socket &s)
   {
-#if BOOST_VERSION >= 107000
       return s.get_executor();
-#else
-      return s.get_io_service();
-#endif
   }
+#else
+  template <typename Socket>
+  auto &&get_io_service(Socket &s)
+  {
+      return s.get_io_service();
+  }
+#endif
 
 } // namespace SimpleWeb
 
