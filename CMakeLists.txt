@@ -65,8 +65,8 @@ if(OPENSSL_FOUND)
     target_include_directories(moonlight-web INTERFACE ${OPENSSL_INCLUDE_DIR})
 endif()
 
-option(WEB_BUILD_TESTS "Build Web tests" OFF)
-option(WEB_BUILD_EXAMPLES "Build Web examples" OFF)
+option(WEB_BUILD_TESTS "Build Web tests (ON OR OFF). This option makes sense only for integrated library!" OFF)
+option(WEB_BUILD_EXAMPLES "Build Web examples (ON OR OFF). This option makes sense only for integrated library!" OFF)
 
 # If Simple-Web-Server is not a sub-project:
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
