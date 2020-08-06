@@ -10,12 +10,6 @@ if(NOT MSVC)
     add_test(parse_test parse_test)
 endif()
 
-if(OPENSSL_FOUND)
-    add_executable(crypto_test crypto_test.cpp)
-    target_link_libraries(crypto_test moonlight-web)
-    add_test(crypto_test crypto_test)
-endif()
-
 add_executable(status_code_test status_code_test.cpp)
 target_link_libraries(status_code_test moonlight-web)
 add_test(status_code_test status_code_test)

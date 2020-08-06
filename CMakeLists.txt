@@ -2,11 +2,12 @@ cmake_minimum_required (VERSION 3.0)
 
 project (moonlight-web)
 
-option(USE_STANDALONE_ASIO "set ON to use standalone Asio instead of Boost.Asio" OFF)
-option(BUILD_TESTING "set ON to build library tests" OFF)
+option(WEB_USE_STANDALONE_ASIO "set ON to use standalone Asio instead of Boost.Asio" OFF)
+
+set(CMAKE_CXX_STANDARD 14)
 
 if(NOT MSVC)
-    add_compile_options(-std=c++11 -Wall -Wextra -Wsign-conversion)
+    add_compile_options(-Wall -Wextra -Wsign-conversion)
 else()
     add_compile_options(/W1)
 endif()
@@ -32,8 +33,8 @@ target_link_libraries(moonlight-web INTERFACE ${CMAKE_THREAD_LIBS_INIT})
 
 # TODO 2020 when Debian Jessie LTS ends:
 # Remove Boost system, thread, regex components; use Boost::<component> aliases; remove Boost target_include_directories
-if(USE_STANDALONE_ASIO)
-    target_compile_definitions(moonlight-web INTERFACE USE_STANDALONE_ASIO)
+if(WEB_USE_STANDALONE_ASIO)
+    target_compile_definitions(moonlight-web INTERFACE WEB_USE_STANDALONE_ASIO)
     include(CheckIncludeFileCXX)
     CHECK_INCLUDE_FILE_CXX(asio.hpp HAVE_ASIO)
     if(NOT HAVE_ASIO)
@@ -64,14 +65,17 @@ if(OPENSSL_FOUND)
     target_include_directories(moonlight-web INTERFACE ${OPENSSL_INCLUDE_DIR})
 endif()
 
+option(WEB_BUILD_TESTS "Build Web tests" OFF)
+option(WEB_BUILD_EXAMPLES "Build Web examples" OFF)
+
 # If Simple-Web-Server is not a sub-project:
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
     add_subdirectory(examples)
     
-    set(BUILD_TESTING ON)
+    set(WEB_BUILD_TESTS ON)
 endif()
 
-if(BUILD_TESTING)
+if(WEB_BUILD_TESTS)
     message( STATUS "Configuring ctest-s" )
     enable_testing()
     add_subdirectory(tests)
