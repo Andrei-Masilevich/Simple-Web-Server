@@ -1,5 +1,8 @@
 cmake_minimum_required (VERSION 3.0)
 
+## HTTP(S) Server/Client
+# (based on boost::asio)
+#
 project (moonlight-web)
 
 option(WEB_USE_STANDALONE_ASIO "set ON to use standalone Asio instead of Boost.Asio" OFF)
