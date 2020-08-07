@@ -20,7 +20,6 @@ set( SOLUTION_FILES
     include/moonlight/web/client_http.hpp
     include/moonlight/web/server_https.hpp
     include/moonlight/web/client_https.hpp
-    include/moonlight/web/crypto.hpp
     include/moonlight/web/utility.hpp
     include/moonlight/web/status_code.hpp)
 
