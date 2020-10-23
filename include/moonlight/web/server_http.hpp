@@ -197,6 +197,8 @@ namespace SimpleWeb {
     public:
       std::string method, path, query_string, http_version;
 
+      std::atomic<uint64_t> id;
+
       Content content;
 
       CaseInsensitiveMultimap header;
