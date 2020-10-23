@@ -192,7 +192,10 @@ namespace SimpleWeb {
       asio::streambuf streambuf;
 
       Request(std::size_t max_request_streambuf_size, std::shared_ptr<asio::ip::tcp::endpoint> remote_endpoint) noexcept
-          : streambuf(max_request_streambuf_size), content(streambuf), remote_endpoint(std::move(remote_endpoint)) {}
+          : streambuf(max_request_streambuf_size),
+            id(0u),
+            content(streambuf),
+            remote_endpoint(std::move(remote_endpoint)) {}
 
     public:
       std::string method, path, query_string, http_version;
